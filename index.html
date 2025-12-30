@@ -2,9 +2,734 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hello World</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amanda Kirk - Game Producer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #2563eb;
+      --secondary-color: #1e40af;
+      --text-dark: #1f2937;
+      --text-light: #6b7280;
+      --bg-light: #f9fafb;
+      --bg-white: #ffffff;
+      --border-color: #e5e7eb;
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background-color: var(--bg-white);
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      padding: 1rem 0;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-color);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary-color);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background-color: var(--text-dark);
+      transition: var(--transition);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 120px 2rem 80px;
+      text-align: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Section Styles */
+    section {
+      padding: 80px 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      text-align: center;
+      color: var(--text-dark);
+      position: relative;
+      padding-bottom: 1rem;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      border-radius: 2px;
+    }
+
+    /* Production Work */
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .work-card {
+      background: var(--bg-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+    }
+
+    .work-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .work-card-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 3rem;
+      overflow: hidden;
+    }
+
+    .work-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .work-card-content {
+      padding: 1.5rem;
+    }
+
+    .work-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-dark);
+    }
+
+    .work-card p {
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+
+    .work-card a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .work-card a:hover {
+      color: var(--secondary-color);
+    }
+
+    /* Design Work */
+    .design-content {
+      max-width: 800px;
+      margin: 0 auto 3rem;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-light);
+    }
+
+    .design-content p {
+      margin-bottom: 1.5rem;
+    }
+
+    .design-content a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .design-content a:hover {
+      color: var(--secondary-color);
+      text-decoration: underline;
+    }
+
+    .design-images-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .design-image-card {
+      background: var(--bg-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+    }
+
+    .design-image-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .design-image-card img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Speaking Engagements */
+    .speaking-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .speaking-item {
+      background: var(--bg-light);
+      padding: 2rem;
+      border-radius: 12px;
+      border-left: 4px solid var(--primary-color);
+      transition: var(--transition);
+    }
+
+    .speaking-item:hover {
+      background: var(--bg-white);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .speaking-item h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-dark);
+    }
+
+    .speaking-meta {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .speaking-item p {
+      color: var(--text-light);
+    }
+
+    /* Blog */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .blog-card {
+      background: var(--bg-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+    }
+
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .blog-card-image {
+      width: 100%;
+      height: 180px;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2rem;
+      overflow: hidden;
+    }
+
+    .blog-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .blog-card-content {
+      padding: 1.5rem;
+    }
+
+    .blog-date {
+      color: var(--text-light);
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .blog-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-dark);
+    }
+
+    .blog-card p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .blog-card a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* About Me */
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 3rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+
+    .about-image {
+      width: 100%;
+      height: 400px;
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 4rem;
+      overflow: hidden;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .about-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-light);
+    }
+
+    .about-text p {
+      margin-bottom: 1.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .social-links a {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: var(--primary-color);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: var(--transition);
+      font-weight: 500;
+    }
+
+    .social-links a:hover {
+      background: var(--secondary-color);
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--text-dark);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 80px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        flex-direction: column;
+        background: white;
+        width: 100%;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+      }
+
+      .nav-links.active {
+        left: 0;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .about-content {
+        grid-template-columns: 1fr;
+      }
+
+      .about-image {
+        height: 300px;
+      }
+
+      .work-grid,
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .design-images-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .design-content {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      section {
+        padding: 60px 1rem;
+      }
+
+      .hero {
+        padding: 100px 1rem 60px;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+    }
+
+    /* Smooth Scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello World</h1>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <a href="#home" class="logo">Amanda Kirk</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#production">Production</a></li>
+        <li><a href="#design">Design</a></li>
+        <li><a href="#speaking">Speaking</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+      <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <h1>Welcome</h1>
+    <p>Showcasing my work, thoughts, and experiences in the game industry</p>
+  </section>
+
+  <!-- Production Work Section -->
+  <section id="production">
+    <h2 class="section-title">Production Work</h2>
+    <div class="work-grid">
+      <div class="work-card">
+        <div class="work-card-image">
+          <img src="images/production-1.jpg" alt="Project Title 1">
+        </div>
+        <div class="work-card-content">
+          <h3>Project Title 1</h3>
+          <p>Description of your production work. Highlight key achievements and technologies used.</p>
+          <a href="#">View Project →</a>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-card-image">
+          <img src="images/production-2.jpg" alt="Project Title 2">
+        </div>
+        <div class="work-card-content">
+          <h3>Project Title 2</h3>
+          <p>Description of your production work. Highlight key achievements and technologies used.</p>
+          <a href="#">View Project →</a>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-card-image">
+          <img src="images/production-3.jpg" alt="Project Title 3">
+        </div>
+        <div class="work-card-content">
+          <h3>Project Title 3</h3>
+          <p>Description of your production work. Highlight key achievements and technologies used.</p>
+          <a href="#">View Project →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Design Work Section -->
+  <section id="design" style="background-color: var(--bg-light);">
+    <h2 class="section-title">Game Design</h2>
+    <div class="design-content">
+      <p>
+        My early career was more focused on game design, but I still dabble as a hobby! Here are some examples of my work. My specialty is game production but I also enjoy game-play and systems design and game writing.
+      </p>
+      <p>
+        My latest personal projects can also be seen on <a href="https://itch.io" target="_blank">itch.io</a> please feel free to contact me if you have interest in learning more about my projects!
+      </p>
+    </div>
+    <div class="design-images-grid">
+      <div class="design-image-card">
+        <img src="images/design-1.jpg" alt="Game Design Project 1">
+      </div>
+      <div class="design-image-card">
+        <img src="images/design-2.jpg" alt="Game Design Project 2">
+      </div>
+      <div class="design-image-card">
+        <img src="images/design-3.jpg" alt="Game Design Project 3">
+      </div>
+    </div>
+  </section>
+
+  <!-- Speaking Engagements Section -->
+  <section id="speaking">
+    <h2 class="section-title">Speaking Engagements</h2>
+    <div class="speaking-list">
+      <div class="speaking-item">
+        <h3>Conference Name 2024</h3>
+        <div class="speaking-meta">Location • Date</div>
+        <p>Topic or title of your talk. Brief description of what you discussed and key takeaways.</p>
+      </div>
+      <div class="speaking-item">
+        <h3>Workshop Series</h3>
+        <div class="speaking-meta">Location • Date</div>
+        <p>Topic or title of your talk. Brief description of what you discussed and key takeaways.</p>
+      </div>
+      <div class="speaking-item">
+        <h3>Tech Meetup</h3>
+        <div class="speaking-meta">Location • Date</div>
+        <p>Topic or title of your talk. Brief description of what you discussed and key takeaways.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section id="blog" style="background-color: var(--bg-light);">
+    <h2 class="section-title">Blog</h2>
+    <div class="blog-grid">
+      <div class="blog-card">
+        <div class="blog-card-image">
+          <img src="images/blog-1.jpg" alt="Blog Post Title">
+        </div>
+        <div class="blog-card-content">
+          <div class="blog-date">January 15, 2024</div>
+          <h3>Blog Post Title</h3>
+          <p>Brief excerpt from your blog post. This gives readers a preview of what to expect...</p>
+          <a href="#">Read More →</a>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-card-image">
+          <img src="images/blog-2.jpg" alt="Another Blog Post">
+        </div>
+        <div class="blog-card-content">
+          <div class="blog-date">December 20, 2023</div>
+          <h3>Another Blog Post</h3>
+          <p>Brief excerpt from your blog post. This gives readers a preview of what to expect...</p>
+          <a href="#">Read More →</a>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-card-image">
+          <img src="images/blog-3.jpg" alt="Thoughts on Design">
+        </div>
+        <div class="blog-card-content">
+          <div class="blog-date">November 10, 2023</div>
+          <h3>Thoughts on Design</h3>
+          <p>Brief excerpt from your blog post. This gives readers a preview of what to expect...</p>
+          <a href="#">Read More →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Me Section -->
+  <section id="about">
+    <h2 class="section-title">About Me</h2>
+    <div class="about-content">
+      <div class="about-image">
+        <img src="images/profile.jpg" alt="Amanda Kirk">
+      </div>
+      <div class="about-text">
+        <p>
+          Welcome!
+        </p>
+        <p>
+          With years of experience in the industry, I've worked on numerous projects that combine technical expertise with creative vision. 
+        </p>
+        <p>
+          When I'm not working on projects, you can find me speaking at conferences, writing blog posts, or exploring new creative techniques and technologies.
+        </p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/amanda-l-kirk/">LinkedIn</a>
+          <a href="https://bsky.app/profile/amandalkirk.bsky.social">Bluesky</a>
+          <a href="https://github.com/Manako">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 Your Name. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // Smooth scroll for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
